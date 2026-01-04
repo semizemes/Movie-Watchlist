@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>movie-watchlist</title>
+  </head>
+  <body>
+    <header>
+      <h1>Find your film</h1>
+      <p><a href="./index.html">Search for Movies</a></p>
+    </header>
+    <main>
+      <form>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" name="movie" id="movie" placeholder="Search for a movie" />
+        <button id="btn" type="button">Search</button>
+      </form>
+      <div class="no-content">
+        <i class="fa-solid fa-film"></i>
+        <p>Start Exploring</p>
+      </div>
+    </main>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
