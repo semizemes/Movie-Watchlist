@@ -1,6 +1,7 @@
 const movieForm = document.getElementById("movie-form");
 let movieIdArr = [];
 let moviesHtmlArr = [];
+let myWatchlistArray = []
 
 movieForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -40,9 +41,9 @@ async function renderSearchedMovies() {
                 <div class="movie-main">
                     <p>${data.Runtime}</p>
                     <p>${data.Genre}</p>
-                    <div class="watchlist">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    <p>Watchlist</p>
+                    <div data-id="${data.imdbID}" class="watchlist" role="button">
+                      <i class="fa-solid fa-circle-plus"></i>
+                      <p>Watchlist</p>
                     </div>
                 </div>
                 <div class="plot">${data.Plot}</div>
@@ -54,3 +55,11 @@ async function renderSearchedMovies() {
 
   document.getElementById("content").innerHTML = arr.join(" ");
 }
+
+document.addEventListener("click", e => {
+  if(e.target.parentElement.dataset.id){
+    console.log(e.target.parentElement.dataset.id);
+    myWatchlistArray.push(e.target.parentElement.dataset.id);
+    
+  }
+})

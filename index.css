@@ -118,11 +118,15 @@ form button:focus {
 }
 
 .movie-main{
+    position: relative;
     gap: 1.5rem;
 
 }
 
 .watchlist{
+    position: absolute;
+    right: 200px;
+    cursor: pointer;
     display: grid;
     grid-template-columns: 1fr 4fr;
     align-items: center;
