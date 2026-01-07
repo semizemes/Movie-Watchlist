@@ -15,11 +15,11 @@
   </head>
   <body>
     <header>
-      <h1>Find your film</h1>
-      <p><a href="./index.html">Search for Movies</a></p>
+      <h1 id="myHeader">Find your film</h1>
+      <p><a href="./index.html">Search for movies</a></p>
     </header>
     <main>
-      <form>
+      <form id="movie-form">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input
           type="text"
@@ -27,14 +27,14 @@
           id="movie"
           placeholder="Search for a movie"
         />
-        <button id="btn" type="button">Search</button>
+        <button id="btn" type="submit">Search</button>
       </form>
-      <div class="no-content">
-        <i class="fa-solid fa-film"></i>
-        <p>Start Exploring</p>
+      <div id="my-content" class="content">
+        <div class="no-content">
+          <i class="fa-solid fa-film"></i>
+          <p>Start Exploring</p>
+        </div>
       </div>
-
-
     </main>
     <script type="module" src="./index.js"></script>
   </body>
