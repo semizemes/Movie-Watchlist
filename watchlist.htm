@@ -19,7 +19,12 @@
       <p><a href="./index.html">Search for movies</a></p>
     </header>
     <main>
-      <form style="display: none;" id="movie-form" method="GET" action="./index.html">
+      <form
+        style="display: none"
+        id="movie-form"
+        method="GET"
+        action="./index.html"
+      >
         <i class="fa-solid fa-magnifying-glass"></i>
         <input
           type="text"
@@ -31,8 +36,11 @@
       </form>
       <div id="my-content" class="content">
         <div class="no-content">
-          <i class="fa-solid fa-film"></i>
-          <p>Start Exploring</p>
+          <p class="no-find">Your watchlist is looking a little empty...</p>
+          <div data-movie-id="${data.imdbID}" class="watchlist" role="button">
+            <i class="fa-solid fa-circle-plus"></i>
+            <a href="./index.html">Let’s add some movies!</a>
+          </div>
         </div>
       </div>
     </main>

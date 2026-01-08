@@ -6,17 +6,26 @@ let myWatchlistHtmlArray = [];
 let myWatchlistIdArray = [];
 
 movieForm.addEventListener("submit", async (e) => {
-  e.preventDefault()
-  
+  e.preventDefault();
+
   let movie = Object.fromEntries(new FormData(e.target)).movie;
 
   const res = await fetch(
     `https://omdbapi.com/?s=${movie}&plot=short&apikey=9835bb97`
   );
   const data = await res.json();
-  movieIdArr = data.Search.map((i) => i.imdbID);
+  console.log(data);
 
-  renderSearchedMovies();
+  if (data.Response == "False") {
+    document.getElementById("content").innerHTML = `
+      <div class="no-content no-find">
+          <p>Unable to find what you’re looking for. Please try another search.</p>
+        </div>
+    `;
+  } else {
+    movieIdArr = data.Search.map((i) => i.imdbID);
+    renderSearchedMovies();
+  }
 
   document.getElementById("movie").value = "";
 });
@@ -60,22 +69,20 @@ async function renderSearchedMovies() {
 
 document.addEventListener("click", (e) => {
   if (e.target.parentElement.dataset.movieId) {
-    console.log(e.target.parentElement.dataset.movieId);
     if (!myWatchlistIdArray.includes(e.target.parentElement.dataset.movieId)) {
       myWatchlistIdArray.push(e.target.parentElement.dataset.movieId);
       const jsonMyWatchlist = JSON.stringify(myWatchlistIdArray);
       localStorage.setItem("myMovies", jsonMyWatchlist);
-      }
+    }
   }
 
   if (e.target.parentElement.dataset.remove) {
-    let isRemove = e.target.parentElement.dataset.remove
-    console.log(isRemove);
-    console.log(myWatchlistIdArray);
-    let removeMovieId = myWatchlistIdArray.findIndex( i => i == isRemove)   
-    console.log(removeMovieId);
-    myWatchlistIdArray.splice(removeMovieId, 1)     
-    renderWatchlist()
+    let isRemove = e.target.parentElement.dataset.remove;
+    let removeMovieId = myWatchlistIdArray.findIndex((i) => i == isRemove);
+    myWatchlistIdArray.splice(removeMovieId, 1);
+    const jsonMyWatchlist = JSON.stringify(myWatchlistIdArray);
+    localStorage.setItem("myMovies", jsonMyWatchlist);
+    renderWatchlist();
   }
 });
 
@@ -83,11 +90,21 @@ const storedJSONArray = localStorage.getItem("myMovies");
 myWatchlistIdArray = JSON.parse(storedJSONArray || "[]");
 if (myWatchlistIdArray.length > 0) {
   renderWatchlist();
+} else{
+  document.getElementById("my-content").innerHTML = `
+        <div class="no-content">
+          <p class="no-find">Your watchlist is looking a little empty...</p>
+          <div class="" role="button">
+            <a style="text-decoration: none; color: #000;" class="no-fav" href="./index.html">
+              <i style="font-size: 1rem; " class="fa-solid fa-circle-plus"></i>
+              Let’s add some movies!
+            </a>
+          </div>
+        </div>
+  `
 }
 
 async function renderWatchlist() {
-  console.log(myWatchlistIdArray);
-
   myWatchlistHtmlArray = myWatchlistIdArray.map(async (movieId) => {
     const res = await fetch(
       `https://www.omdbapi.com/?i=${movieId}&apikey=9835bb97`
