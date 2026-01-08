@@ -1,14 +1,12 @@
 const movieForm = document.getElementById("movie-form");
+
 let movieIdArr = [];
 let moviesHtmlArr = [];
 let myWatchlistHtmlArray = [];
 let myWatchlistIdArray = [];
 
 movieForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const param = new URLSearchParams(window.location.search)
-  const movieParam = param.get("movie")
-  console.log(movieParam);
+  e.preventDefault()
   
   let movie = Object.fromEntries(new FormData(e.target)).movie;
 
@@ -69,6 +67,16 @@ document.addEventListener("click", (e) => {
       localStorage.setItem("myMovies", jsonMyWatchlist);
       }
   }
+
+  if (e.target.parentElement.dataset.remove) {
+    let isRemove = e.target.parentElement.dataset.remove
+    console.log(isRemove);
+    console.log(myWatchlistIdArray);
+    let removeMovieId = myWatchlistIdArray.findIndex( i => i == isRemove)   
+    console.log(removeMovieId);
+    myWatchlistIdArray.splice(removeMovieId, 1)     
+    renderWatchlist()
+  }
 });
 
 const storedJSONArray = localStorage.getItem("myMovies");
@@ -101,7 +109,7 @@ async function renderWatchlist() {
                 <div class="movie-main">
                     <p>${data.Runtime}</p>
                     <p>${data.Genre}</p>
-                    <div data-movie-id="${data.imdbID}" class="remove" role="button">
+                    <div data-remove="${data.imdbID}" class="remove" role="button">
                       <i class="fa-solid fa-circle-minus"></i>
                       <p>Remove</p>
                     </div>
@@ -113,5 +121,5 @@ async function renderWatchlist() {
   });
   const arr = await Promise.all(myWatchlistHtmlArray);
 
-  document.getElementById("my-content").innerHTML = arr.join(" ") || "";
+  document.getElementById("my-content").innerHTML = arr.join(" ");
 }
